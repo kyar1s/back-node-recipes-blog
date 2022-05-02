@@ -1,9 +1,10 @@
 import express from "express";
+import { roleValidation } from "../middleware/roleValidation.js";
 import { createIngredient, getIngredientByName } from "../services/ingredientService.js";
 
 const ingredientController = express.Router();
 
-ingredientController.post("/", async (req, res, next) => {
+ingredientController.post("/", roleValidation("admin"), async (req, res, next) => {
   try {
     const ingredient = req.body;
     await createIngredient(ingredient);
