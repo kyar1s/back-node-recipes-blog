@@ -1,7 +1,19 @@
 import express from "express";
+import { roleValidation } from "../middleware/roleValidation.js";
 import { createUser, getUserByEmail } from "../services/userService.js";
 
 const userController = express.Router();
+
+userController.get("/me", roleValidation("user"), async (req, res, next) => {
+  try {
+    const { email } = req.user;
+    const user = await getUserByEmail(email);
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 userController.get("/:email", async (req, res, next) => {
   try {
