@@ -3,6 +3,7 @@ import express from "express";
 import { initMongoDB } from "./config/mongodb.js";
 import userController from "./controllers/userController.js";
 import ingredientController from "./controllers/ingredientController.js";
+import recipeController from "./controllers/recipeController.js";
 import authController from "./controllers/authController.js";
 import { tokenValidation } from "./middleware/tokenValidation.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -16,6 +17,7 @@ server.use(tokenValidation);
 
 server.use("/user", userController);
 server.use("/ingredient", ingredientController);
+server.use("/recipe", recipeController);
 server.use("/auth", authController);
 
 server.use(errorHandler);

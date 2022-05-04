@@ -8,3 +8,7 @@ export const insertIngredient = async (ingredientDetails) => {
 export const findIngredientByName = async (name) => {
   return await Ingredient.findOne({ name });
 };
+
+export const findIngredientsByNames = async (names) => {
+  return await Ingredient.find({ name: names });
+};
