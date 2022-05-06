@@ -10,8 +10,7 @@ userController.get("/me", roleValidation("user"), async (req, res, next) => {
     const user = await getUserByEmail(email);
     res.json(user);
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    next(err);
   }
 });
 
@@ -21,8 +20,7 @@ userController.get("/:email", async (req, res, next) => {
     const user = await getUserByEmail(email);
     res.json(user);
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    next(err);
   }
 });
 
@@ -32,8 +30,7 @@ userController.post("/", async (req, res, next) => {
     await createUser(user);
     res.sendStatus(200);
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    next(err);
   }
 });
 

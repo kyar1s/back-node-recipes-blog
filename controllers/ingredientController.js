@@ -10,8 +10,7 @@ ingredientController.post("/", roleValidation("admin"), async (req, res, next) =
     await createIngredient(ingredient);
     res.sendStatus(200);
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    next(err);
   }
 });
 
@@ -21,8 +20,7 @@ ingredientController.get("/:name", async (req, res, next) => {
     const ingredient = await getIngredientByName(name);
     res.json(ingredient);
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    next(err);
   }
 });
 
