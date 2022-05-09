@@ -12,3 +12,7 @@ export const findRecipeByTitle = async (title) => {
 export const findRecipesByTitles = async (titles) => {
   return await Recipe.find({ title: titles });
 };
+
+export const findAllRecipes = async () => {
+  return await Recipe.find();
+};

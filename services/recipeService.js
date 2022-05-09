@@ -1,5 +1,5 @@
 import { findIngredientsByNames } from "../repositories/ingredientRepository.js";
-import { insertRecipe, findRecipesByTitles, findRecipeByTitle } from "../repositories/recipeRepository.js";
+import { insertRecipe, findRecipesByTitles, findRecipeByTitle, findAllRecipes } from "../repositories/recipeRepository.js";
 import { HttpError } from "../utils/httpError.js";
 import { calculateMacros } from "../utils/macrosCalculator.js";
 import groupBy from "lodash.groupby";
@@ -26,4 +26,8 @@ export const createRecipe = async (recipe) => {
 export const getRecipeByTitle = async (title) => {
   if (!title) throw new HttpError(400, "Title not provided");
   return await findRecipeByTitle(title);
+};
+
+export const getAllRecipes = async () => {
+  return await findAllRecipes();
 };

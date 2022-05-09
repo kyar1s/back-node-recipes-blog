@@ -1,6 +1,6 @@
 import express from "express";
 import { roleValidation } from "../middleware/roleValidation.js";
-import { createRecipe, getRecipeByTitle } from "../services/recipeService.js";
+import { createRecipe, getAllRecipes, getRecipeByTitle } from "../services/recipeService.js";
 
 const recipeController = express.Router();
 
@@ -19,6 +19,15 @@ recipeController.get("/:title", async (req, res, next) => {
     const { title } = req.params;
     const recipe = await getRecipeByTitle(title);
     res.json(recipe);
+  } catch (err) {
+    next(err);
+  }
+});
+
+recipeController.get("/", async (req, res, next) => {
+  try {
+    const recipes = await getAllRecipes();
+    res.json(recipes);
   } catch (err) {
     next(err);
   }
