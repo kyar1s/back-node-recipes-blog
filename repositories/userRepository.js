@@ -8,3 +8,7 @@ export const insertUser = async (userDetails) => {
 export const findUserByEmail = async (email) => {
   return await User.findOne({ email });
 };
+
+export const deleteUserByEmail = async ({ email }) => {
+  return await User.deleteOne({ email });
+};

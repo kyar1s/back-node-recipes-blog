@@ -1,6 +1,6 @@
 import express from "express";
 import { roleValidation } from "../middleware/roleValidation.js";
-import { createUser, getUserByEmail } from "../services/userService.js";
+import { createUser, getUserByEmail, removeUserByEmail } from "../services/userService.js";
 
 const userController = express.Router();
 
@@ -28,6 +28,16 @@ userController.post("/", async (req, res, next) => {
   try {
     const user = req.body;
     await createUser(user);
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+});
+
+userController.delete("/delete", roleValidation("master"), async (req, res, next) => {
+  try {
+    const email = req.body;
+    await removeUserByEmail(email);
     res.sendStatus(200);
   } catch (err) {
     next(err);
