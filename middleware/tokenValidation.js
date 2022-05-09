@@ -9,6 +9,6 @@ export const tokenValidation = async (req, res, next) => {
     req.user = { email, role, _id };
     next();
   } catch (err) {
-    throw new HttpError(409, "Wrong JWT");
+    next(new HttpError(409, "Wrong JWT"));
   }
 };
