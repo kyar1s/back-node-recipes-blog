@@ -1,5 +1,11 @@
 import { findIngredientsByNames } from "../repositories/ingredientRepository.js";
-import { insertRecipe, findRecipesByTitles, findRecipeByTitle, findAllRecipes } from "../repositories/recipeRepository.js";
+import {
+  insertRecipe,
+  findRecipesByTitles,
+  findRecipeByTitle,
+  findAllRecipes,
+  findRecipesWithLimit,
+} from "../repositories/recipeRepository.js";
 import { HttpError } from "../utils/httpError.js";
 import { calculateMacros } from "../utils/macrosCalculator.js";
 import groupBy from "lodash.groupby";
@@ -30,4 +36,8 @@ export const getRecipeByTitle = async (title) => {
 
 export const getAllRecipes = async () => {
   return await findAllRecipes();
+};
+
+export const getRecipesWithLimit = async (limit, offset) => {
+  return await findRecipesWithLimit(limit, offset);
 };

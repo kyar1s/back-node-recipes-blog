@@ -1,6 +1,7 @@
 import express from "express";
 import { roleValidation } from "../middleware/roleValidation.js";
-import { createRecipe, getAllRecipes, getRecipeByTitle } from "../services/recipeService.js";
+import { createRecipe, getAllRecipes, getRecipeByTitle, getRecipesWithLimit } from "../services/recipeService.js";
+import { OFFSET, LIMIT } from "../utils/constants.js";
 
 const recipeController = express.Router();
 
@@ -9,6 +10,16 @@ recipeController.post("/", roleValidation("admin"), async (req, res, next) => {
     const recipe = req.body;
     await createRecipe(recipe);
     res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+});
+
+recipeController.get("/listing:limit?:offset?", async (req, res, next) => {
+  try {
+    const { limit = LIMIT, offset = OFFSET } = req.query;
+    const recipes = await getRecipesWithLimit(limit, offset);
+    res.json(recipes);
   } catch (err) {
     next(err);
   }
@@ -24,7 +35,7 @@ recipeController.get("/:title", async (req, res, next) => {
   }
 });
 
-recipeController.get("/", async (req, res, next) => {
+recipeController.get("/all", async (req, res, next) => {
   try {
     const recipes = await getAllRecipes();
     res.json(recipes);

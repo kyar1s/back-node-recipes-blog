@@ -16,3 +16,9 @@ export const findRecipesByTitles = async (titles) => {
 export const findAllRecipes = async () => {
   return await Recipe.find();
 };
+
+export const findRecipesWithLimit = async (limit, offset) => {
+  return await Recipe.find()
+    .limit(limit)
+    .skip(limit * offset);
+};
