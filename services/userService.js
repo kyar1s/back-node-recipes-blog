@@ -1,4 +1,4 @@
-import { insertUser, findUserByEmail, deleteUserByEmail } from "../repositories/userRepository.js";
+import { insertUser, findUserByEmail, deleteUserByEmail, updateUserByEmail } from "../repositories/userRepository.js";
 import { encryptPassword } from "../utils/crypto.js";
 import { HttpError } from "../utils/httpError.js";
 
@@ -10,6 +10,11 @@ export const createUser = async ({ password, ...user }) => {
 export const getUserByEmail = async (email) => {
   if (!email) throw new HttpError(400, "Email not provided");
   return await findUserByEmail(email);
+};
+
+export const setUserByEmail = async (email, user) => {
+  if (!email) throw new HttpError(400, "Email not provided");
+  return await updateUserByEmail(email, user);
 };
 
 export const removeUserByEmail = async (email) => {

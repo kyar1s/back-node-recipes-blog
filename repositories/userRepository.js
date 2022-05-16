@@ -12,3 +12,7 @@ export const findUserByEmail = async (email) => {
 export const deleteUserByEmail = async ({ email }) => {
   return await User.deleteOne({ email });
 };
+
+export const updateUserByEmail = async (email, userDetails) => {
+  return await User.findOneAndUpdate({ email }, userDetails, { new: true });
+};
